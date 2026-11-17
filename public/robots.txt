@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://wecrew.in/sitemap.xml
+Host: https://wecrew.in

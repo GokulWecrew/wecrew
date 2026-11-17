@@ -1,0 +1,255 @@
+@import "tailwindcss";
+
+/*
+ * WeCrew design system — Tailwind CSS v4 theme tokens.
+ * Brand palette is derived from the original WeCrew logo:
+ * deep blue "W", cyan orbital swoosh, green circuit globe.
+ */
+@theme {
+  --font-sans: "Inter", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", var(--font-outfit), "Inter", var(--font-inter), ui-sans-serif, sans-serif;
+
+  /* Deep navy — premium dark surfaces */
+  --color-navy-950: #050d1f;
+  --color-navy-900: #0a1628;
+  --color-navy-850: #0d1d33;
+  --color-navy-800: #10233f;
+  --color-navy-700: #1a3355;
+  --color-navy-600: #24436c;
+
+  /* Brand blue — the logo "W" */
+  --color-brand-700: #0e4da3;
+  --color-brand-600: #1668d8;
+  --color-brand-500: #2b7de9;
+  --color-brand-400: #4d9af0;
+  --color-brand-300: #7db8f5;
+  --color-brand-200: #b3d5fa;
+  --color-brand-100: #dbeafe;
+  --color-brand-50: #eff6ff;
+
+  /* Cyan — the orbital swoosh */
+  --color-cyan-600: #0e9fd8;
+  --color-cyan-500: #22b8f0;
+  --color-cyan-400: #4fcdf7;
+  --color-cyan-300: #83e0fa;
+
+  /* Green — the circuit globe */
+  --color-brand-green-600: #2fa63c;
+  --color-brand-green-500: #3fc94e;
+  --color-brand-green-400: #5bd968;
+  --color-brand-green-300: #8ce797;
+  --color-brand-green-100: #dcf7e0;
+
+  /* Neutral ink */
+  --color-ink-900: #0f172a;
+  --color-ink-700: #334155;
+  --color-ink-500: #64748b;
+  --color-ink-300: #cbd5e1;
+  --color-ink-100: #e9eef5;
+  --color-ink-50: #f6f8fb;
+
+  --shadow-card: 0 1px 2px rgb(10 22 40 / 0.06), 0 8px 24px rgb(10 22 40 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(10 22 40 / 0.06), 0 16px 40px rgb(10 22 40 / 0.14);
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-spin-slow: spin 24s linear infinite;
+  --animate-pulse-soft: pulse-soft 4s ease-in-out infinite;
+  --animate-dropdown: dropdown 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+  }
+  @keyframes dropdown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Dark mode — class strategy driven by ThemeProvider */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Semantic theme tokens (runtime CSS variables).
+ * These flip in `.dark`; utilities generated with `@theme inline`
+ * reference the variables directly, so a class like `bg-base`
+ * re-resolves automatically when the theme class changes.
+ */
+:root {
+  --font-inter: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-outfit: "Outfit", "Inter", ui-sans-serif, sans-serif;
+
+  /* Header layout design tokens */
+  --header-height: 4.5rem;
+  --header-height-mobile: 4rem;
+  --header-container-width: 1440px;
+  --header-horizontal-padding: 2rem;
+  --header-horizontal-padding-mobile: 1rem;
+
+  --wc-surface: #ffffff;
+  --wc-surface-soft: #f6f8fb;
+  --wc-surface-raised: #ffffff;
+  --wc-header: rgba(255, 255, 255, 0.95);
+  --wc-text: #0f172a;
+  --wc-text-body: #334155;
+  --wc-text-faint: #5f6f85;
+  --wc-border: #e9eef5;
+  --wc-border-strong: #cbd5e1;
+  --wc-accent: #1668d8;
+  --wc-accent-strong: #0e4da3;
+  --wc-accent-cyan: #0e9fd8;
+  --wc-accent-green: #2fa63c;
+  --wc-danger: #e11d48;
+  --wc-danger-soft: #fff1f2;
+  --wc-hero: #050d1f;
+  --wc-hero-elev: #0d1d33;
+  --wc-shadow-color: 10 22 40;
+}
+
+.dark {
+  --header-height: 4.5rem;
+  --header-height-mobile: 4rem;
+  --header-container-width: 1440px;
+  --header-horizontal-padding: 2rem;
+  --header-horizontal-padding-mobile: 1rem;
+
+  --wc-surface: #0a1628;
+  --wc-surface-soft: #050d1f;
+  --wc-surface-raised: #10233f;
+  --wc-header: rgba(5, 13, 31, 0.95);
+  --wc-text: #f1f5fb;
+  --wc-text-body: #b9c5d6;
+  --wc-text-faint: #8fa0b8;
+  --wc-border: #21364f;
+  --wc-border-strong: #33486b;
+  --wc-accent: #7db8f5;
+  --wc-accent-strong: #b3d5fa;
+  --wc-accent-cyan: #4fcdf7;
+  --wc-accent-green: #5bd968;
+  --wc-danger: #fb7185;
+  --wc-danger-soft: rgba(251, 113, 133, 0.09);
+  --wc-hero: #050d1f;
+  --wc-hero-elev: #0d1d33;
+  --wc-shadow-color: 0 0 0;
+}
+
+/* Map semantic tokens to Tailwind utilities (inline = live var() reference) */
+@theme inline {
+  --color-base: var(--wc-surface);
+  --color-base-soft: var(--wc-surface-soft);
+  --color-base-raised: var(--wc-surface-raised);
+  --color-header: var(--wc-header);
+  --color-ink: var(--wc-text);
+  --color-ink-body: var(--wc-text-body);
+  --color-ink-faint: var(--wc-text-faint);
+  --color-line: var(--wc-border);
+  --color-line-strong: var(--wc-border-strong);
+  --color-accent: var(--wc-accent);
+  --color-accent-strong: var(--wc-accent-strong);
+  --color-accent-cyan: var(--wc-accent-cyan);
+  --color-accent-green: var(--wc-accent-green);
+  --color-danger: var(--wc-danger);
+  --color-danger-soft: var(--wc-danger-soft);
+  --color-hero: var(--wc-hero);
+  --color-hero-elev: var(--wc-hero-elev);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  @apply bg-base text-ink antialiased;
+  font-feature-settings: "ss01" on;
+}
+
+::selection {
+  background: var(--color-brand-600);
+  color: #fff;
+}
+
+/* Focus visibility — WCAG 2.2 */
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Layout */
+.container-x {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+}
+
+/* Typography helpers */
+.display-1 {
+  @apply font-display font-semibold tracking-tight text-4xl leading-[1.08] sm:text-5xl lg:text-6xl;
+}
+.display-2 {
+  @apply font-display font-semibold tracking-tight text-3xl leading-[1.12] sm:text-4xl lg:text-[2.75rem];
+}
+.eyebrow {
+  @apply font-display text-xs font-semibold tracking-[0.18em] uppercase;
+}
+.body-lg {
+  @apply text-lg leading-relaxed text-ink-body;
+}
+
+/* Brand gradient text */
+.text-gradient {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(100deg, var(--color-brand-400), var(--color-cyan-400) 55%, var(--color-brand-green-400));
+}
+
+/* Surface treatments */
+.card {
+  @apply rounded-xl border border-line bg-base-raised shadow-card;
+}
+.dark-card {
+  @apply rounded-xl border border-white/10 bg-white/[0.04];
+}
+
+/* Subtle grid backdrop for dark hero sections */
+.bg-grid-dark {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.bg-grid-light {
+  background-image:
+    linear-gradient(to right, rgb(15 23 42 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 42 / 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Scroll reveal (driven by IntersectionObserver in <Reveal/>) */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Reduced motion — disable decorative animation */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-float, .animate-spin-slow, .animate-pulse-soft, .animate-dropdown {
+    animation: none !important;
+  }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

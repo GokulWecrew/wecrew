@@ -1,0 +1,38 @@
+services:
+  wecrew-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: wecrew/web:latest
+    container_name: wecrew-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:80/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    environment:
+      - VITE_SITE_URL=https://wecrew.in
+      - VITE_FORMSUBMIT_ENDPOINT=https://formsubmit.co/ajax/support@wecrew.in
+      - VITE_FORMSUBMIT_EMAIL=support@wecrew.in
+    env_file:
+      - path: .env
+        required: false
+
+  # Optional TLS Reverse Proxy (uncomment when mounting production SSL certificates)
+  # nginx-ssl:
+  #   image: nginx:1.27-alpine
+  #   container_name: wecrew-nginx-ssl
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - wecrew-web
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx/wecrew.conf:/etc/nginx/conf.d/default.conf:ro
+  #     - ./nginx/certs:/etc/nginx/certs:ro
+  #     - ./certbot/www:/var/www/certbot:ro
